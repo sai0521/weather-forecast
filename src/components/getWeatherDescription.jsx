@@ -1,4 +1,7 @@
+
+
 export const getWeatherDescription = (code) => {
+  {/** static description acoording to the weather code */}
   const descriptions = [
     {
       check: code === 0,
@@ -65,6 +68,7 @@ export const getWeatherDescription = (code) => {
     },
   ];
 
+  {/** if ther is a match get that obj else adds adefault obj of description */}
   const match =
     descriptions.find((d) => d.check) || {
       title: "Weather Update",
@@ -75,8 +79,13 @@ export const getWeatherDescription = (code) => {
 
   return (
     <div className="flex flex-col items-start md:items-end space-y-2 text-left md:text-right">
+      {/** title text */}
       <h2 className="text-5xl font-semibold text-white">{match.title}</h2>
+
+      {/** sub text */}
       <h3 className={`text-3xl font-semibold ${match.color}`}>{match.subtitle}</h3>
+
+      {/** small description */}
       <p className="text-base text-gray-100 max-w-md">{match.desc}</p>
     </div>
   );

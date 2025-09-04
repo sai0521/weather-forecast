@@ -9,41 +9,42 @@ import Dailypanel from "./Dailypanel";
 
 
 const WeatherDashboard = () => {
-    const { weather, isLoadingWeather,err} = useContext(SearchContext); // Added isLoadingWeather
-    const currenthour = Number(new Date().getHours());
+    const { weather, isLoadingWeather} = useContext(SearchContext); 
+    const currenthour = Number(new Date().getHours()); // calculates current hour for slicing the hourly weather data
 
-    if (weather === null) {
-        return <div className="flex justify-center items-center min-h-screen text-6xl text-white-500">Error loading weather data. Please try again later.</div>;
-    }
-
-    if (isLoadingWeather || !weather || !weather.current || !weather.hourly) { // Updated to include isLoadingWeather
+    {/** loader animation during data fetch */}
+    if (isLoadingWeather || !weather || !weather.current || !weather.hourly) { 
         return (
             <div className="flex justify-center items-center min-h-screen"> {/* Adjusted height for full-screen feel */}
                 <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-white"></div> {/* Minimalistic spinner */}
             </div>
         );
     }
-    const currentIcon = weatherMap[weather.current.weather_code] || "wi wi-day-sunny-overcast";
-    // console.log(weather.hourly.time[currenthour])
-    // console.log(weather.hourly.time.slice(currenthour, currenthour+6))
 
+    {/** gets respective icon according to weather code from weathermap.js */}
+    const currentIcon = weatherMap[weather.current.weather_code] || "wi wi-day-sunny-overcast";
 
     return (
-        <div className={`flex flex-col md:flex-row  {getBackgroundClass(weather.current.weather_code)} p-6 `}>
-            {/* Main Layout */}
+        <div className={`flex flex-col md:flex-row p-6 `}>
+            {/* panel Layout */}
             <div className=" md:w-1/3 md:h-[500px]  w-full ">
                 {/* Side Panel */}
                 <Weatherpanel weather={weather} currentIcon={currentIcon}/>
 
             </div>
 
+            {/**hourly and daily panel layout */}
             <div className="flex flex-col  md:h-[500px] justify-between flex-1 mx-10  h-full gap-10">
                 
+                {/**gets styled description according to the weather */}
                 <div >
                     {getWeatherDescription(weather.current.weather_code)}
                 </div>
+
                 {/* Hourly Forecast */}
                 <Hourlypanel currenthour={currenthour} weather={weather} weatherMap={weatherMap}/>
+
+                {/** daily forcast */}
                 <Dailypanel  weather={weather} weatherMap={weatherMap}/>
             </div>
 

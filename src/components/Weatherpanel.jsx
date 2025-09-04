@@ -3,11 +3,12 @@ import React from 'react'
 const Weatherpanel = ({weather,currentIcon}) => {
     return (
         <div className="bg-white/20 backdrop-blur-lg rounded-3xl shadow-xl p-8 flex flex-col justify-between items-center my-10 mx-10 h-full text-white">
-            {/* Weather icon + temp */}
+            {/* Weather icon  */}
             <div className="flex flex-col items-center text-center pt-2">
                 <i className={`${currentIcon} text-7xl md:text-9xl mb-4`}></i>
             </div>
-
+            
+            {/** temperature */}
             <h2 className=" text-7xl md:text-7xl font-bold">{weather.current.temperature_2m}°C</h2>
 
             {/* Weather details */}
@@ -16,6 +17,8 @@ const Weatherpanel = ({weather,currentIcon}) => {
                     <span>Feels Like</span>
                     <span>{weather.current.apparent_temperature}°C</span>
                 </p>
+
+                {/**humidity */}
                 <p className="flex justify-between border-b border-white/20 pb-1">
                     <span>Humidity</span>
                     <span>
@@ -23,6 +26,8 @@ const Weatherpanel = ({weather,currentIcon}) => {
                         <span>{weather.current.relative_humidity_2m}%</span>
                     </span>
                 </p>
+
+                {/**precipitation */}
                 <p className="flex justify-between border-b border-white/20 pb-1">
                     <span>Precipitation</span>
                     <span>
@@ -30,6 +35,8 @@ const Weatherpanel = ({weather,currentIcon}) => {
                         <span>{weather.current.precipitation} mm</span>
                     </span>
                 </p>
+
+                {/**wind speed */}
                 <p className="flex justify-between">
                     <span>Wind Speed</span>
                     <span>
